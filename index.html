@@ -6,8 +6,8 @@
     <title>TechWizard IT Handyman Services</title>
     <style>
         :root {
-            --primary-color: #3498db;
-            --secondary-color: #2ecc71;
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
             --accent-color: #e74c3c;
             --background-color: #ecf0f1;
             --text-color: #34495e;
@@ -21,10 +21,11 @@
         }
 
         body {
-            font-family: 'Arial', sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             line-height: 1.6;
             color: var(--text-color);
             background-color: var(--background-color);
+            overflow-x: hidden;
         }
 
         .container {
@@ -36,8 +37,12 @@
         header {
             background-color: var(--primary-color);
             color: var(--light-text-color);
-            padding: 2rem 0;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
 
         .header-content {
@@ -47,8 +52,10 @@
         }
 
         .logo {
-            font-size: 2rem;
+            font-size: 1.5rem;
             font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 2px;
         }
 
         nav ul {
@@ -65,41 +72,85 @@
             text-decoration: none;
             font-weight: bold;
             transition: color 0.3s ease;
+            position: relative;
         }
 
-        nav ul li a:hover {
-            color: var(--secondary-color);
+        nav ul li a::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: var(--secondary-color);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        nav ul li a:hover::after {
+            transform: scaleX(1);
         }
 
         main {
-            padding: 4rem 0;
+            padding-top: 80px;
         }
 
         .hero {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: var(--light-text-color);
+            padding: 6rem 0;
             text-align: center;
+            clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
             margin-bottom: 4rem;
         }
 
         .hero h1 {
-            font-size: 3rem;
+            font-size: 3.5rem;
             margin-bottom: 1rem;
-            color: var(--primary-color);
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
         }
 
         .hero p {
             font-size: 1.2rem;
             max-width: 600px;
-            margin: 0 auto;
+            margin: 0 auto 2rem;
         }
 
-        .services, .tips, .subscription {
-            margin-bottom: 4rem;
+        .cta-button {
+            display: inline-block;
+            padding: 0.8rem 2rem;
+            background-color: var(--accent-color);
+            color: var(--light-text-color);
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+
+        .services, .tips {
+            margin-bottom: 6rem;
         }
 
         h2 {
             color: var(--primary-color);
-            margin-bottom: 1rem;
-            font-size: 2rem;
+            margin-bottom: 2rem;
+            font-size: 2.5rem;
+            text-align: center;
+            position: relative;
+        }
+
+        h2::after {
+            content: '';
+            display: block;
+            width: 50px;
+            height: 3px;
+            background-color: var(--secondary-color);
+            margin: 1rem auto 0;
         }
 
         .service-grid, .tips-grid {
@@ -111,26 +162,53 @@
         .service-item, .tip-item {
             background-color: white;
             padding: 2rem;
-            border-radius: 5px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-item::before, .tip-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background-color: var(--secondary-color);
+            transform: scaleX(0);
+            transform-origin: left;
             transition: transform 0.3s ease;
         }
 
         .service-item:hover, .tip-item:hover {
             transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+        }
+
+        .service-item:hover::before, .tip-item:hover::before {
+            transform: scaleX(1);
         }
 
         .service-item h3, .tip-item h3 {
             color: var(--secondary-color);
             margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .service-icon, .tip-icon {
+            font-size: 2.5rem;
+            color: var(--secondary-color);
+            margin-bottom: 1rem;
         }
 
         .subscription {
-            background-color: var(--secondary-color);
+            background-color: var(--primary-color);
             color: var(--light-text-color);
-            padding: 3rem;
-            border-radius: 5px;
+            padding: 4rem 0;
             text-align: center;
+            clip-path: polygon(0 15%, 100% 0, 100% 100%, 0 100%);
         }
 
         .subscription h2 {
@@ -144,20 +222,20 @@
         }
 
         .subscription input[type="email"] {
-            padding: 0.5rem 1rem;
+            padding: 0.8rem 1.5rem;
             font-size: 1rem;
             border: none;
-            border-radius: 3px 0 0 3px;
+            border-radius: 50px 0 0 50px;
             width: 300px;
         }
 
         .subscription button {
-            padding: 0.5rem 1rem;
+            padding: 0.8rem 1.5rem;
             font-size: 1rem;
             background-color: var(--accent-color);
             color: var(--light-text-color);
             border: none;
-            border-radius: 0 3px 3px 0;
+            border-radius: 0 50px 50px 0;
             cursor: pointer;
             transition: background-color 0.3s ease;
         }
@@ -171,6 +249,7 @@
             color: var(--light-text-color);
             text-align: center;
             padding: 2rem 0;
+            margin-top: 4rem;
         }
 
         @media (max-width: 768px) {
@@ -211,28 +290,35 @@
     </header>
 
     <main>
-        <div class="container">
-            <section class="hero">
+        <section class="hero">
+            <div class="container">
                 <h1>Your IT Handyman</h1>
                 <p>Expert tech support for Apple devices and beyond. We're here to make your digital life easier.</p>
-            </section>
+                <a href="#services" class="cta-button">Explore Our Services</a>
+            </div>
+        </section>
 
+        <div class="container">
             <section id="services" class="services">
                 <h2>Our Services</h2>
                 <div class="service-grid">
                     <div class="service-item">
+                        <div class="service-icon">💻</div>
                         <h3>Apple Device Support</h3>
                         <p>Specialized help for all your Apple products, from iPhones to Macs.</p>
                     </div>
                     <div class="service-item">
+                        <div class="service-icon">🔧</div>
                         <h3>General Tech Support</h3>
                         <p>Troubleshooting and assistance for a wide range of tech issues.</p>
                     </div>
                     <div class="service-item">
+                        <div class="service-icon">📦</div>
                         <h3>Software Installation</h3>
                         <p>Expert setup and configuration of essential software and apps.</p>
                     </div>
                     <div class="service-item">
+                        <div class="service-icon">🔨</div>
                         <h3>Hardware Repairs</h3>
                         <p>Quick and reliable fixes for your devices' hardware problems.</p>
                     </div>
@@ -243,29 +329,34 @@
                 <h2>Latest Tips & Tricks</h2>
                 <div class="tips-grid">
                     <div class="tip-item">
+                        <div class="tip-icon">🚀</div>
                         <h3>Speed Up Your Mac</h3>
                         <p>Learn 5 easy steps to boost your Mac's performance.</p>
                     </div>
                     <div class="tip-item">
+                        <div class="tip-icon">📱</div>
                         <h3>iOS Shortcuts</h3>
                         <p>Discover 10 time-saving iOS shortcuts you didn't know about.</p>
                     </div>
                     <div class="tip-item">
+                        <div class="tip-icon">📶</div>
                         <h3>Wi-Fi Troubleshooting</h3>
                         <p>Simple solutions for common Wi-Fi connectivity issues.</p>
                     </div>
                 </div>
             </section>
+        </div>
 
-            <section id="subscription" class="subscription">
+        <section id="subscription" class="subscription">
+            <div class="container">
                 <h2>Stay Updated</h2>
                 <p>Subscribe to our newsletter for weekly tech tips, exclusive offers, and priority support options.</p>
                 <form id="subscribe-form">
                     <input type="email" placeholder="Enter your email" required>
                     <button type="submit">Subscribe</button>
                 </form>
-            </section>
-        </div>
+            </div>
+        </section>
     </main>
 
     <footer>
