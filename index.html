@@ -217,31 +217,48 @@
 
         .subscription form {
             display: flex;
-            justify-content: center;
-            margin-top: 2rem;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .subscription label {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
         }
 
         .subscription input[type="email"] {
             padding: 0.8rem 1.5rem;
             font-size: 1rem;
             border: none;
-            border-radius: 50px 0 0 50px;
+            border-radius: 50px;
             width: 300px;
+            max-width: 100%;
         }
 
-        .subscription button {
+        .subscription input[type="submit"] {
             padding: 0.8rem 1.5rem;
             font-size: 1rem;
             background-color: var(--accent-color);
             color: var(--light-text-color);
             border: none;
-            border-radius: 0 50px 50px 0;
+            border-radius: 50px;
             cursor: pointer;
             transition: background-color 0.3s ease;
         }
 
-        .subscription button:hover {
+        .subscription input[type="submit"]:hover {
             background-color: #c0392b;
+        }
+
+        .subscription p {
+            font-size: 0.8rem;
+            margin-top: 1rem;
+        }
+
+        .subscription a {
+            color: var(--light-text-color);
+            text-decoration: underline;
         }
 
         footer {
@@ -270,7 +287,7 @@
             }
 
             .subscription input[type="email"] {
-                width: 200px;
+                width: 100%;
             }
         }
     </style>
@@ -347,16 +364,24 @@
             </section>
         </div>
 
-        <section id="subscription" class="subscription">
-            <div class="container">
-                <h2>Stay Updated</h2>
-                <p>Subscribe to our newsletter for weekly tech tips, exclusive offers, and priority support options.</p>
-                <form id="subscribe-form">
-                    <input type="email" placeholder="Enter your email" required>
-                    <button type="submit">Subscribe</button>
-                </form>
-            </div>
-        </section>
+    <section id="subscription" class="subscription">
+        <div class="container">
+            <h2>Stay Updated</h2>
+            <p>Subscribe to our newsletter for weekly tech tips, exclusive offers, and priority support options.</p>
+            <form
+                action="https://buttondown.com/api/emails/embed-subscribe/ithandyman"
+                method="post"
+                target="popupwindow"
+                onsubmit="window.open('https://buttondown.com/ithandyman', 'popupwindow')"
+                class="embeddable-buttondown-form"
+            >
+                <label for="bd-email"></label>
+                <input type="email" name="email" id="bd-email" />
+                
+                <input type="submit" value="Subscribe" />
+            </form>
+        </div>
+    </section>
     </main>
 
     <footer>
@@ -364,12 +389,5 @@
             <p>&copy; 2024 TechWizard IT Handyman Services. All rights reserved.</p>
         </div>
     </footer>
-
-    <script>
-        document.getElementById('subscribe-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            alert('Thank you for subscribing! Check your email for confirmation.');
-        });
-    </script>
 </body>
 </html>
